@@ -15,7 +15,15 @@
       "Bash(NEXT_TURBOPACK=false npm run build)",
       "Bash(cp \"C:/Users/Abdel/Documents/Claude Code/IT Space/BG1.png\" \"C:/Users/Abdel/Documents/Claude Code/IT Space/.claude/worktrees/angry-carson-f03a07/public/BG1.png\")",
       "Bash(cp \"C:/Users/Abdel/Documents/Claude Code/IT Space/BG2.png\" \"C:/Users/Abdel/Documents/Claude Code/IT Space/.claude/worktrees/angry-carson-f03a07/public/BG2.png\")",
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('why', {}\\), indent=2\\)\\)\")"
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('why', {}\\), indent=2\\)\\)\")",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/fr)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('about', {}\\), indent=2\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/fr/services/consulting)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/fr/about)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/fr)",
+      "mcp__Claude_in_Chrome__list_connected_browsers"
     ]
   }
 }

@@ -1,21 +1,17 @@
-import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
+import { Stats } from '@/components/Stats';
 import { Services } from '@/components/Services';
-import { About } from '@/components/About';
-import { Contact } from '@/components/Contact';
-import { Footer } from '@/components/Footer';
+import { WhyUs } from '@/components/WhyUs';
+import { CtaBanner } from '@/components/CtaBanner';
 
-export default function Page() {
+export default function HomePage() {
   return (
     <>
-      <Navbar />
-      <main className="pt-16">
-        <Hero />
-        <Services />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <Stats />
+      <Services preview />
+      <WhyUs />
+      <CtaBanner />
     </>
   );
 }

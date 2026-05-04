@@ -85,31 +85,31 @@ export function Hero() {
 
           {/* Subheadline */}
           <p
-            className="text-white/85 text-lg leading-relaxed max-w-lg mb-10"
+            className="text-white/85 text-lg leading-relaxed max-w-lg mb-8"
             style={{ textShadow: '0 1px 8px rgba(0,0,0,0.4)' }}
           >
-            {t('subheadline')}
+            Your trusted technology partner in North Africa. We deliver cutting-edge IT solutions to transform and secure your business.
           </p>
 
-          {/* CTAs */}
+          {/* CTAs — side by side */}
           <div className="flex flex-wrap gap-4">
             <Link
               href={`/${locale}/services`}
-              className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl transition-all duration-200 shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
               style={{
                 background: '#00B4FF',
                 color: '#0D1B3E',
                 boxShadow: '0 8px 32px rgba(0,180,255,0.35)',
               }}
             >
-              {t('cta_primary')}
+              Discover Our Services
               <ArrowRight size={18} />
             </Link>
             <Link
               href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 border-2 border-white/50 text-white hover:bg-white/10 font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
             >
-              {t('cta_secondary')}
+              Get Free Quotation
             </Link>
           </div>
 

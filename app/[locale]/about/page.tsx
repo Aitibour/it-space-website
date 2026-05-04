@@ -4,6 +4,8 @@ import { PageHero } from '@/components/PageHero';
 import { About } from '@/components/About';
 import { CtaBanner } from '@/components/CtaBanner';
 
+const BG = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format&fit=crop';
+
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -29,6 +31,7 @@ export default async function AboutPage({ params }: Props) {
         title={t('title')}
         subtitle={t('subtitle')}
         breadcrumb="About"
+        bgImage={BG}
       />
       <About />
       <CtaBanner />

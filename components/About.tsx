@@ -9,9 +9,9 @@ export function About({ preview = false }: Props) {
   const t = useTranslations('about');
 
   const values = [
-    { key: 'value_innovation' as const, descKey: 'value_innovation_desc' as const, icon: Zap, color: '#F59E0B' },
-    { key: 'value_security' as const, descKey: 'value_security_desc' as const, icon: ShieldCheck, color: '#EF4444' },
-    { key: 'value_excellence' as const, descKey: 'value_excellence_desc' as const, icon: Star, color: '#8B5CF6' },
+    { key: 'value_innovation' as const, descKey: 'value_innovation_desc' as const, icon: Zap, gradient: 'from-[#F59E0B] to-[#D97706]', glow: '#F59E0B' },
+    { key: 'value_security' as const, descKey: 'value_security_desc' as const, icon: ShieldCheck, gradient: 'from-[#EF4444] to-[#DC2626]', glow: '#EF4444' },
+    { key: 'value_excellence' as const, descKey: 'value_excellence_desc' as const, icon: Star, gradient: 'from-[#8B5CF6] to-[#7C3AED]', glow: '#8B5CF6' },
   ];
 
   return (
@@ -97,16 +97,16 @@ export function About({ preview = false }: Props) {
             <h3 className="text-2xl md:text-3xl font-black text-[#0D1B3E]">{t('values_title')}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {values.map(({ key, descKey, icon: Icon, color }) => (
+            {values.map(({ key, descKey, icon: Icon, gradient, glow }) => (
               <div
                 key={key}
                 className="group bg-[#F8FAFC] hover:bg-white rounded-2xl p-7 border border-slate-100 hover:border-transparent hover:shadow-xl transition-all duration-300"
               >
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-300"
-                  style={{ background: `${color}18` }}
+                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform duration-300`}
+                  style={{ boxShadow: `0 6px 20px ${glow}40` }}
                 >
-                  <Icon size={22} style={{ color }} />
+                  <Icon size={24} className="text-white" strokeWidth={1.75} />
                 </div>
                 <h4 className="font-bold text-[#0D1B3E] text-base mb-2">{t(key)}</h4>
                 <p className="text-slate-500 text-sm leading-relaxed">{t(descKey)}</p>

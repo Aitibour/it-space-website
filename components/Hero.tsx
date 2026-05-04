@@ -60,12 +60,6 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: text */}
           <div>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 border border-blue-400/30 bg-blue-400/10 backdrop-blur-sm text-blue-200 text-xs font-semibold px-4 py-2 rounded-full mb-8">
-              <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-              Tanger, Morocco &nbsp;·&nbsp; IT Solutions &amp; Consulting
-            </div>
-
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl md:text-[64px] font-black leading-[1.05] mb-4">
               <span className="text-white block">{t('headline')}</span>

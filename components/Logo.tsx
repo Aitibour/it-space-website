@@ -79,16 +79,6 @@ export function Logo({ white = false, compact = false }: Props) {
               Space
             </span>
           </div>
-          <div
-            className="flex items-center gap-1 mt-1"
-            style={{ color: sub }}
-          >
-            <div className="h-px w-3 bg-current opacity-70" />
-            <span className="text-[7px] tracking-[0.18em] uppercase font-semibold whitespace-nowrap">
-              Solutions &amp; Consulting
-            </span>
-            <div className="h-px w-3 bg-current opacity-70" />
-          </div>
         </div>
       )}
     </div>

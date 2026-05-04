@@ -2,19 +2,31 @@ interface Props {
   title: string;
   subtitle?: string;
   breadcrumb?: string;
+  bgImage?: string;
 }
 
-export function PageHero({ title, subtitle, breadcrumb }: Props) {
+export function PageHero({ title, subtitle, breadcrumb, bgImage }: Props) {
   return (
-    <section
-      className="relative pt-32 pb-20 px-4 overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #0D1B3E 0%, #0f2456 60%, #1a3a8a 100%)',
-      }}
-    >
-      {/* Dot grid */}
+    <section className="relative pt-36 pb-24 px-4 overflow-hidden">
+      {/* Background image */}
+      {bgImage && (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${bgImage}')` }}
+        />
+      )}
+      {/* Dark overlay — always shown, stronger when no image */}
       <div
-        className="absolute inset-0 opacity-[0.06]"
+        className="absolute inset-0"
+        style={{
+          background: bgImage
+            ? 'linear-gradient(135deg, rgba(13,27,62,0.92) 0%, rgba(15,36,86,0.80) 60%, rgba(26,58,138,0.70) 100%)'
+            : 'linear-gradient(135deg, #0D1B3E 0%, #0f2456 60%, #1a3a8a 100%)',
+        }}
+      />
+      {/* Dot grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage: 'radial-gradient(rgba(0,180,255,0.8) 1px, transparent 1px)',
           backgroundSize: '36px 36px',

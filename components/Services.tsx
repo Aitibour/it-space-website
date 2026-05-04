@@ -3,12 +3,65 @@ import Link from 'next/link';
 import { Lightbulb, Shield, Cloud, Zap, Code2, ArrowRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-const SERVICE_DEFS: { key: string; icon: LucideIcon; titleKey: string; shortKey: string; descKey: string; color: string }[] = [
-  { key: 'consulting', icon: Lightbulb, titleKey: 'consulting_title', shortKey: 'consulting_short', descKey: 'consulting_desc', color: '#F59E0B' },
-  { key: 'security',   icon: Shield,    titleKey: 'security_title',   shortKey: 'security_short',   descKey: 'security_desc',   color: '#EF4444' },
-  { key: 'cloud',      icon: Cloud,     titleKey: 'cloud_title',      shortKey: 'cloud_short',      descKey: 'cloud_desc',      color: '#00B4FF' },
-  { key: 'digital',    icon: Zap,       titleKey: 'digital_title',    shortKey: 'digital_short',    descKey: 'digital_desc',    color: '#8B5CF6' },
-  { key: 'software',   icon: Code2,     titleKey: 'software_title',   shortKey: 'software_short',   descKey: 'software_desc',   color: '#10B981' },
+const SERVICE_DEFS: {
+  key: string;
+  icon: LucideIcon;
+  titleKey: string;
+  shortKey: string;
+  descKey: string;
+  color: string;
+  image: string;
+}[] = [
+  {
+    key: 'consulting',
+    icon: Lightbulb,
+    titleKey: 'consulting_title',
+    shortKey: 'consulting_short',
+    descKey: 'consulting_desc',
+    color: '#F59E0B',
+    image:
+      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop',
+  },
+  {
+    key: 'security',
+    icon: Shield,
+    titleKey: 'security_title',
+    shortKey: 'security_short',
+    descKey: 'security_desc',
+    color: '#EF4444',
+    image:
+      'https://images.unsplash.com/photo-1550751827-4bd374173516?w=800&q=80&auto=format&fit=crop',
+  },
+  {
+    key: 'cloud',
+    icon: Cloud,
+    titleKey: 'cloud_title',
+    shortKey: 'cloud_short',
+    descKey: 'cloud_desc',
+    color: '#00B4FF',
+    image:
+      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80&auto=format&fit=crop',
+  },
+  {
+    key: 'digital',
+    icon: Zap,
+    titleKey: 'digital_title',
+    shortKey: 'digital_short',
+    descKey: 'digital_desc',
+    color: '#8B5CF6',
+    image:
+      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop',
+  },
+  {
+    key: 'software',
+    icon: Code2,
+    titleKey: 'software_title',
+    shortKey: 'software_short',
+    descKey: 'software_desc',
+    color: '#10B981',
+    image:
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80&auto=format&fit=crop',
+  },
 ];
 
 interface Props {
@@ -33,44 +86,60 @@ export function Services({ preview = false }: Props) {
           <p className="text-slate-500 max-w-2xl mx-auto text-lg">{t('subtitle')}</p>
         </div>
 
-        {/* Cards */}
-        <div className={`grid gap-6 ${
-          displayed.length === 4
-            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
-            : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-        }`}>
-          {displayed.map(({ key, icon: Icon, titleKey, shortKey, descKey, color }) => (
+        {/* Cards — image background style */}
+        <div
+          className={`grid gap-5 ${
+            displayed.length === 4
+              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
+              : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+          }`}
+        >
+          {displayed.map(({ key, icon: Icon, titleKey, shortKey, descKey, color, image }) => (
             <div
               key={key}
-              className="group bg-white rounded-2xl p-6 border border-slate-100 hover:border-transparent hover:shadow-2xl transition-all duration-300 relative overflow-hidden"
+              className="group relative rounded-2xl overflow-hidden h-72 cursor-default"
             >
-              {/* Top color bar */}
+              {/* Background image */}
               <div
-                className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url('${image}')` }}
+              />
+              {/* Persistent dark overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/95 via-[#0D1B3E]/60 to-[#0D1B3E]/20" />
+              {/* Color tint on hover */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-400"
                 style={{ background: color }}
               />
-
-              {/* Icon */}
+              {/* Top accent bar */}
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-colors duration-300"
-                style={{ background: `${color}18` }}
-              >
-                <Icon
-                  size={22}
-                  style={{ color }}
-                  className="group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
+                className="absolute top-0 left-0 right-0 h-[3px] opacity-80"
+                style={{ background: `linear-gradient(90deg, ${color}, transparent)` }}
+              />
 
-              <h3 className="font-bold text-[#0D1B3E] text-base mb-1">
-                {t(titleKey as Parameters<typeof t>[0])}
-              </h3>
-              <p className="text-xs text-slate-400 font-medium mb-3">
-                {t(shortKey as Parameters<typeof t>[0])}
-              </p>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                {t(descKey as Parameters<typeof t>[0])}
-              </p>
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6">
+                {/* Icon */}
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 shadow-lg"
+                  style={{
+                    background: `linear-gradient(135deg, ${color}CC, ${color}66)`,
+                    boxShadow: `0 0 20px ${color}40`,
+                  }}
+                >
+                  <Icon size={22} className="text-white" strokeWidth={2} />
+                </div>
+
+                <h3 className="font-bold text-white text-base mb-1 drop-shadow">
+                  {t(titleKey as Parameters<typeof t>[0])}
+                </h3>
+                <p className="text-[11px] font-semibold mb-2" style={{ color }}>
+                  {t(shortKey as Parameters<typeof t>[0])}
+                </p>
+                <p className="text-sm text-slate-300 leading-relaxed line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {t(descKey as Parameters<typeof t>[0])}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -103,7 +172,7 @@ export function Services({ preview = false }: Props) {
                   {n < 4 && (
                     <div className="hidden lg:block absolute top-8 left-[calc(100%+0px)] w-full h-0.5 bg-gradient-to-r from-blue-200 to-transparent z-0" />
                   )}
-                  <div className="bg-white rounded-2xl p-6 border border-slate-100 relative z-10">
+                  <div className="bg-white rounded-2xl p-6 border border-slate-100 relative z-10 hover:shadow-xl transition-shadow duration-300">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1E40AF] to-[#00B4FF] flex items-center justify-center text-white font-black text-xl mb-5 shadow-lg shadow-blue-200">
                       {n}
                     </div>

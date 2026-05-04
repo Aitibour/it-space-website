@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Transforming Business Through Technology",
+    "subtitle": "IT Space is your trusted technology partner in North Africa. We deliver cutting-edge IT consulting, cyber security, and digital transformation solutions.",
+    "cta_primary": "Our Services",
+    "cta_secondary": "Contact Us",
+    "stat_experience": "10+ Years Experience",
+    "stat_projects": "50+ Projects Delivered",
+    "stat_satisfaction": "100% Client Satisfaction"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive technology solutions tailored for modern businesses",
+    "consulting_title": "IT Consulting",
+    "consulting_desc": "Strategic technology guidance, infrastructure audits, and tech roadmaps to align your IT with your business goals.",
+    "project_title": "Project Management",
+    "project_desc": "Agile delivery and digital transformation projects managed by certified professionals with a proven track record.",
+    "security_title": "Cyber Security",
+    "security_desc": "Comprehensive threat assessment, SOC monitoring, and compliance services to protect your digital assets.",
+    "digital_title": "Digital Solutions",
+    "digital_desc": "Custom software, web and mobile applications, and cloud migration to accelerate your digital journey."
+  },
+  "about": {
+    "title": "About IT Space",
+    "subtitle": "Your technology partner in Tanger",
+    "body": "Founded in Tanger, Morocco, IT Space has been at the forefront of digital transformation in the Maghreb region. Our team of certified engineers and consultants brings deep expertise across IT consulting, cyber security, and digital solutions.",
+    "mission": "Our mission is to empower businesses across North Africa with world-class technology solutions that drive growth, efficiency, and security.",
+    "value_innovation": "Innovation",
+    "value_security": "Security",
+    "value_excellence": "Excellence"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team",
+    "address": "Tanger, Morocco",
+    "phone": "+212 539 94 00 00",
+    "email": "contact@itspace.ma",
+    "form_name": "Full Name",
+    "form_email": "Email Address",
+    "form_subject": "Subject",
+    "form_opt_consulting": "IT Consulting",
+    "form_opt_security": "Cyber Security",
+    "form_opt_project": "Project Management",
+    "form_opt_digital": "Digital Solutions",
+    "form_opt_other": "Other",
+    "form_message": "Message",
+    "form_submit": "Send Message"
+  },
+  "footer": {
+    "tagline": "Your trusted technology partner in North Africa",
+    "quick_links": "Quick Links",
+    "copyright": "© 2026 IT Space — Tanger, Morocco. All rights reserved."
+  }
+}

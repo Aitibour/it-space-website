@@ -88,7 +88,7 @@ export function Hero() {
             className="text-white/85 text-lg leading-relaxed max-w-lg mb-8"
             style={{ textShadow: '0 1px 8px rgba(0,0,0,0.4)' }}
           >
-            Your trusted technology partner in North Africa. We deliver cutting-edge IT solutions to transform and secure your business.
+            {t('subheadline')}
           </p>
 
           {/* CTAs — side by side */}
@@ -102,14 +102,14 @@ export function Hero() {
                 boxShadow: '0 8px 32px rgba(0,180,255,0.35)',
               }}
             >
-              Discover Our Services
+              {t('cta_primary')}
               <ArrowRight size={18} />
             </Link>
             <Link
               href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 border-2 border-white/50 text-white hover:bg-white/10 font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
             >
-              Get Free Quotation
+              {t('cta_secondary')}
             </Link>
           </div>
 

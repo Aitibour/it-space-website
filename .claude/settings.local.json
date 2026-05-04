@@ -23,7 +23,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/fr/services/consulting)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/fr/about)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/fr)",
-      "mcp__Claude_in_Chrome__list_connected_browsers"
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('C:/Users/Abdel/Documents/Claude Code/IT Space/.claude/worktrees/angry-carson-f03a07/messages/en.json'\\)\\); print\\(json.dumps\\({k:v for k,v in d.get\\('hero',{}\\).items\\(\\)}, indent=2\\)\\)\")"
     ]
   }
 }

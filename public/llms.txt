@@ -1,0 +1,53 @@
+# IT Space
+
+> IT Space is a technology consulting and cybersecurity company headquartered in Tanger, Morocco. We serve businesses across North Africa and beyond with cutting-edge IT solutions that drive digital transformation, operational efficiency, and security.
+
+IT Space was founded in Tanger and has built a reputation as the go-to technology partner in the Maghreb region, combining deep local market knowledge with internationally certified expertise.
+
+## Services
+
+- [IT Consulting](/en/services/consulting): Strategic technology guidance, IT infrastructure audits, technology roadmapping, vendor management, and change management for organizations across North Africa.
+- [Cybersecurity](/en/services/security): Threat assessment, penetration testing, SOC monitoring 24/7, ISO 27001 compliance implementation, and incident response & recovery.
+- [Cloud Solutions](/en/services/cloud): Cloud migration (AWS, Azure, GCP), multi-cloud strategy, managed cloud services, and disaster recovery solutions.
+- [Digital Transformation](/en/services/digital): Business process automation (BPA/RPA), ERP & CRM implementation (SAP, Odoo, Salesforce), business intelligence, and customer experience design.
+- [Software Development](/en/services/software): Custom web applications, mobile apps (iOS/Android), API design & integration, and legacy system modernization.
+- [AI & Data Solutions](/en/services/ai-data): AI strategy & roadmap, machine learning models, data engineering pipelines, and generative AI integration (GPT-4, Claude, Mistral).
+
+## Company
+
+- Founded: Tanger, Morocco
+- Expertise: IT Consulting, Cybersecurity, Cloud, Digital Transformation, Software Development, AI & Data
+- Team: Certified engineers and consultants with 10+ years experience
+- Track record: 50+ projects delivered, 100+ satisfied clients, 99% satisfaction rate
+- Coverage: Morocco, Algeria, Tunisia, Senegal and remote clients in Europe and the Middle East
+
+## Key Pages
+
+- Homepage: https://itspace.ma/en
+- Services overview: https://itspace.ma/en/services
+- IT Consulting: https://itspace.ma/en/services/consulting
+- Cybersecurity: https://itspace.ma/en/services/security
+- Cloud Solutions: https://itspace.ma/en/services/cloud
+- Digital Transformation: https://itspace.ma/en/services/digital
+- Software Development: https://itspace.ma/en/services/software
+- AI & Data Solutions: https://itspace.ma/en/services/ai-data
+- About Us: https://itspace.ma/en/about
+- Contact: https://itspace.ma/en/contact
+- Privacy Policy: https://itspace.ma/en/privacy
+- Terms of Service: https://itspace.ma/en/terms
+
+## Languages
+
+Available in French (/fr), English (/en), and Arabic (/ar) with full RTL support.
+
+## Contact
+
+- Email: contact@itspace.ma
+- Phone: +212 539 94 00 00
+- Address: Tanger, Morocco
+- LinkedIn: https://www.linkedin.com/company/itspace-ma
+- Website: https://itspace.ma
+
+## Optional
+
+- Sitemap: https://itspace.ma/sitemap.xml

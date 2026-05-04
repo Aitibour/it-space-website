@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Zap, ShieldCheck, Star, Eye, Target } from 'lucide-react';
+import { VideoSection } from './VideoSection';
 
 interface Props {
   preview?: boolean;
@@ -29,39 +30,14 @@ export function About({ preview = false }: Props) {
             <p className="text-slate-600 leading-relaxed text-[15px]">{t('mission')}</p>
           </div>
 
-          {/* Decorative visual */}
-          <div className="hidden lg:flex items-center justify-center">
-            <div className="relative w-80 h-80">
-              {/* Outer ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-blue-200 animate-[spin_30s_linear_infinite]" />
-              {/* Inner layers */}
-              <div
-                className="absolute inset-6 rounded-2xl opacity-10"
-                style={{ background: 'linear-gradient(135deg, #1E40AF, #00B4FF)' }}
-              />
-              <div className="absolute inset-8 border border-blue-200 rounded-xl" />
-              <div className="absolute inset-14 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl flex items-center justify-center shadow-inner">
-                <span
-                  className="text-6xl font-black select-none"
-                  style={{
-                    background: 'linear-gradient(135deg, #0D1B3E, #1E40AF)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                  }}
-                >
-                  IT
-                </span>
-              </div>
-              {/* Floating accent squares */}
-              <div
-                className="absolute -top-3 -right-3 w-10 h-10 rounded-xl shadow-lg animate-float"
-                style={{ background: 'linear-gradient(135deg, #1E40AF, #00B4FF)' }}
-              />
-              <div
-                className="absolute -bottom-3 -left-3 w-7 h-7 rounded-lg shadow-md animate-float-delay"
-                style={{ background: '#00B4FF' }}
-              />
-            </div>
+          {/* Video section — replaces the decorative IT logo */}
+          <div className="hidden lg:block">
+            <VideoSection
+              videoId="LXb3EKWsInQ"
+              poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80&auto=format&fit=crop"
+              title={t('story_title')}
+              subtitle={t('body')}
+            />
           </div>
         </div>
 

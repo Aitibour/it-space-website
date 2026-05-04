@@ -4,6 +4,9 @@ import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { SERVICES } from '@/lib/services-data';
+
+type Lang = 'fr' | 'en' | 'ar';
 
 function LinkedInIcon() {
   return (
@@ -26,22 +29,19 @@ function XIcon() {
 export function Footer() {
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
-  const tServices = useTranslations('services');
   const locale = useLocale();
+  const lang = locale as Lang;
 
   const navLinks = [
-    { key: 'home' as const, href: `/${locale}` },
-    { key: 'services' as const, href: `/${locale}/services` },
-    { key: 'about' as const, href: `/${locale}/about` },
-    { key: 'contact' as const, href: `/${locale}/contact` },
+    { label: tNav('home'), href: `/${locale}` },
+    { label: tNav('services'), href: `/${locale}/services` },
+    { label: tNav('about'), href: `/${locale}/about` },
+    { label: tNav('contact'), href: `/${locale}/contact` },
   ];
 
-  const serviceLinks = [
-    { key: 'consulting_title' as const, href: `/${locale}/services` },
-    { key: 'security_title' as const, href: `/${locale}/services` },
-    { key: 'cloud_title' as const, href: `/${locale}/services` },
-    { key: 'digital_title' as const, href: `/${locale}/services` },
-    { key: 'software_title' as const, href: `/${locale}/services` },
+  const legalLinks = [
+    { label: lang === 'fr' ? 'Politique de Confidentialité' : lang === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy', href: `/${locale}/privacy` },
+    { label: lang === 'fr' ? 'Conditions d\'Utilisation' : lang === 'ar' ? 'شروط الخدمة' : 'Terms of Service', href: `/${locale}/terms` },
   ];
 
   return (
@@ -77,20 +77,34 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
+          {/* Quick links + Legal */}
           <div>
             <h4 className="font-bold text-sm uppercase tracking-wider text-white mb-5">
               {t('quick_links')}
             </h4>
-            <ul className="flex flex-col gap-2.5">
-              {navLinks.map(({ key, href }) => (
-                <li key={key}>
+            <ul className="flex flex-col gap-2.5 mb-8">
+              {navLinks.map(({ label, href }) => (
+                <li key={href}>
                   <Link
                     href={href}
                     className="text-slate-400 text-sm hover:text-[#00B4FF] transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 bg-slate-600 group-hover:bg-[#00B4FF] rounded-full transition-colors" />
-                    {tNav(key)}
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h4 className="font-bold text-sm uppercase tracking-wider text-white mb-5">Legal</h4>
+            <ul className="flex flex-col gap-2.5">
+              {legalLinks.map(({ label, href }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-slate-400 text-sm hover:text-[#00B4FF] transition-colors flex items-center gap-2 group"
+                  >
+                    <span className="w-1 h-1 bg-slate-600 group-hover:bg-[#00B4FF] rounded-full transition-colors" />
+                    {label}
                   </Link>
                 </li>
               ))}
@@ -103,14 +117,14 @@ export function Footer() {
               {t('services_title')}
             </h4>
             <ul className="flex flex-col gap-2.5">
-              {serviceLinks.map(({ key, href }) => (
-                <li key={key}>
+              {SERVICES.map((svc) => (
+                <li key={svc.slug}>
                   <Link
-                    href={href}
+                    href={`/${locale}/services/${svc.slug}`}
                     className="text-slate-400 text-sm hover:text-[#00B4FF] transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 bg-slate-600 group-hover:bg-[#00B4FF] rounded-full transition-colors" />
-                    {tServices(key)}
+                    {svc.title[lang]}
                   </Link>
                 </li>
               ))}
@@ -156,9 +170,16 @@ export function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-slate-500 text-xs">{t('copyright')}</p>
-          <div className="flex items-center gap-1 text-slate-500 text-xs">
-            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-            <span>All systems operational</span>
+          <div className="flex items-center gap-4">
+            {legalLinks.map(({ label, href }) => (
+              <Link key={href} href={href} className="text-slate-600 hover:text-slate-400 text-xs transition-colors">
+                {label}
+              </Link>
+            ))}
+            <div className="flex items-center gap-1 text-slate-500 text-xs">
+              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+              <span>All systems operational</span>
+            </div>
           </div>
         </div>
       </div>

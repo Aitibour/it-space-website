@@ -1,68 +1,11 @@
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
-import { Lightbulb, Shield, Cloud, Zap, Code2, ArrowRight } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+import { ArrowRight, Lightbulb, Shield, Cloud, Zap, Code2, Cpu, type LucideIcon } from 'lucide-react';
+import { SERVICES } from '@/lib/services-data';
 
-const SERVICE_DEFS: {
-  key: string;
-  icon: LucideIcon;
-  titleKey: string;
-  shortKey: string;
-  descKey: string;
-  color: string;
-  image: string;
-}[] = [
-  {
-    key: 'consulting',
-    icon: Lightbulb,
-    titleKey: 'consulting_title',
-    shortKey: 'consulting_short',
-    descKey: 'consulting_desc',
-    color: '#F59E0B',
-    image:
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop',
-  },
-  {
-    key: 'security',
-    icon: Shield,
-    titleKey: 'security_title',
-    shortKey: 'security_short',
-    descKey: 'security_desc',
-    color: '#EF4444',
-    image:
-      'https://images.unsplash.com/photo-1550751827-4bd374173516?w=800&q=80&auto=format&fit=crop',
-  },
-  {
-    key: 'cloud',
-    icon: Cloud,
-    titleKey: 'cloud_title',
-    shortKey: 'cloud_short',
-    descKey: 'cloud_desc',
-    color: '#00B4FF',
-    image:
-      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80&auto=format&fit=crop',
-  },
-  {
-    key: 'digital',
-    icon: Zap,
-    titleKey: 'digital_title',
-    shortKey: 'digital_short',
-    descKey: 'digital_desc',
-    color: '#8B5CF6',
-    image:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop',
-  },
-  {
-    key: 'software',
-    icon: Code2,
-    titleKey: 'software_title',
-    shortKey: 'software_short',
-    descKey: 'software_desc',
-    color: '#10B981',
-    image:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80&auto=format&fit=crop',
-  },
-];
+const ICON_MAP: Record<string, LucideIcon> = { Lightbulb, Shield, Cloud, Zap, Code2, Cpu };
+
+type Lang = 'fr' | 'en' | 'ar';
 
 interface Props {
   preview?: boolean;
@@ -71,8 +14,9 @@ interface Props {
 export function Services({ preview = false }: Props) {
   const t = useTranslations('services');
   const locale = useLocale();
+  const lang = locale as Lang;
 
-  const displayed = preview ? SERVICE_DEFS.slice(0, 4) : SERVICE_DEFS;
+  const displayed = preview ? SERVICES.slice(0, 4) : SERVICES;
 
   return (
     <section id="services" className={preview ? 'py-24 bg-white' : 'py-20 bg-[#F8FAFC]'}>
@@ -89,59 +33,63 @@ export function Services({ preview = false }: Props) {
         {/* Cards — image background style */}
         <div
           className={`grid gap-5 ${
-            displayed.length === 4
+            displayed.length <= 4
               ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
               : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
           }`}
         >
-          {displayed.map(({ key, icon: Icon, titleKey, shortKey, descKey, color, image }) => (
-            <div
-              key={key}
-              className="group relative rounded-2xl overflow-hidden h-72 cursor-default"
-            >
-              {/* Background image */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url('${image}')` }}
-              />
-              {/* Persistent dark overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/95 via-[#0D1B3E]/60 to-[#0D1B3E]/20" />
-              {/* Color tint on hover */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-400"
-                style={{ background: color }}
-              />
-              {/* Top accent bar */}
-              <div
-                className="absolute top-0 left-0 right-0 h-[3px] opacity-80"
-                style={{ background: `linear-gradient(90deg, ${color}, transparent)` }}
-              />
-
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6">
-                {/* Icon */}
+          {displayed.map((svc) => {
+            const Icon = ICON_MAP[svc.iconName];
+            return (
+              <Link
+                key={svc.slug}
+                href={`/${locale}/services/${svc.slug}`}
+                className="group relative rounded-2xl overflow-hidden h-72 cursor-pointer block"
+              >
+                {/* Background image */}
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 shadow-lg"
-                  style={{
-                    background: `linear-gradient(135deg, ${color}CC, ${color}66)`,
-                    boxShadow: `0 0 20px ${color}40`,
-                  }}
-                >
-                  <Icon size={22} className="text-white" strokeWidth={2} />
-                </div>
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                  style={{ backgroundImage: `url('${svc.image}')` }}
+                />
+                {/* Persistent dark overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/95 via-[#0D1B3E]/60 to-[#0D1B3E]/20" />
+                {/* Color tint on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
+                  style={{ background: svc.color }}
+                />
+                {/* Top accent bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[3px] opacity-80"
+                  style={{ background: `linear-gradient(90deg, ${svc.color}, transparent)` }}
+                />
 
-                <h3 className="font-bold text-white text-base mb-1 drop-shadow">
-                  {t(titleKey as Parameters<typeof t>[0])}
-                </h3>
-                <p className="text-[11px] font-semibold mb-2" style={{ color }}>
-                  {t(shortKey as Parameters<typeof t>[0])}
-                </p>
-                <p className="text-sm text-slate-300 leading-relaxed line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {t(descKey as Parameters<typeof t>[0])}
-                </p>
-              </div>
-            </div>
-          ))}
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6">
+                  {/* Icon */}
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 shadow-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${svc.color}CC, ${svc.color}66)`,
+                      boxShadow: `0 0 20px ${svc.color}40`,
+                    }}
+                  >
+                    <Icon size={22} className="text-white" strokeWidth={2} />
+                  </div>
+
+                  <h3 className="font-bold text-white text-base mb-1 drop-shadow">
+                    {svc.title[lang]}
+                  </h3>
+                  <p className="text-[11px] font-semibold mb-2" style={{ color: svc.color }}>
+                    {svc.short[lang]}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-white/0 group-hover:text-white/80 transition-all duration-300 text-xs font-semibold">
+                    {t('learn_more')} <ArrowRight size={12} />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         {/* View all CTA */}

@@ -7,12 +7,12 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { TypeWriter } from './TypeWriter';
 
 const SLIDES = [
+  '/BG1.png',
+  '/BG2.png',
   'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=90&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=90&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1920&q=90&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=90&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1920&q=90&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=90&auto=format&fit=crop',
 ];
 
 export function Hero() {

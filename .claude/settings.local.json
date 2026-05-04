@@ -8,7 +8,14 @@
       "Bash(vercel whoami *)",
       "Bash(vercel --prod --yes)",
       "Bash(git remote *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git commit -m 'fix: update LinkedIn link to itspace-ma company page *)",
+      "Bash(git commit -m 'feat: update hero subheadline and CTA labels side by side *)",
+      "Bash(Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue)",
+      "Bash(NEXT_TURBOPACK=false npm run build)",
+      "Bash(cp \"C:/Users/Abdel/Documents/Claude Code/IT Space/BG1.png\" \"C:/Users/Abdel/Documents/Claude Code/IT Space/.claude/worktrees/angry-carson-f03a07/public/BG1.png\")",
+      "Bash(cp \"C:/Users/Abdel/Documents/Claude Code/IT Space/BG2.png\" \"C:/Users/Abdel/Documents/Claude Code/IT Space/.claude/worktrees/angry-carson-f03a07/public/BG2.png\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('why', {}\\), indent=2\\)\\)\")"
     ]
   }
 }

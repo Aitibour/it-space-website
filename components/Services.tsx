@@ -16,7 +16,7 @@ export function Services({ preview = false }: Props) {
   const locale = useLocale();
   const lang = locale as Lang;
 
-  const displayed = preview ? SERVICES.slice(0, 4) : SERVICES;
+  const displayed = SERVICES;
 
   return (
     <section id="services" className={preview ? 'py-24 bg-white' : 'py-20 bg-[#F8FAFC]'}>
@@ -31,13 +31,7 @@ export function Services({ preview = false }: Props) {
         </div>
 
         {/* Cards — image background style */}
-        <div
-          className={`grid gap-5 ${
-            displayed.length <= 4
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
-              : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
-          }`}
-        >
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {displayed.map((svc) => {
             const Icon = ICON_MAP[svc.iconName];
             return (
@@ -83,8 +77,8 @@ export function Services({ preview = false }: Props) {
                   <p className="text-[11px] font-semibold mb-2" style={{ color: svc.color }}>
                     {svc.short[lang]}
                   </p>
-                  <div className="flex items-center gap-1.5 text-white/0 group-hover:text-white/80 transition-all duration-300 text-xs font-semibold">
-                    {t('learn_more')} <ArrowRight size={12} />
+                  <div className="flex items-center gap-1.5 text-white/60 group-hover:text-white transition-all duration-300 text-xs font-semibold">
+                    {t('learn_more')} <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform duration-200" />
                   </div>
                 </div>
               </Link>

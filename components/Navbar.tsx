@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -19,6 +19,16 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function openServices() {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  }
+  function closeServices() {
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 200);
+  }
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10);
@@ -50,26 +60,29 @@ export function Navbar() {
             {isActive(`/${locale}`) && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#00B4FF] rounded-full" />}
           </Link>
 
-          {/* Services with CSS-hover dropdown — no JS needed */}
-          <div className="relative group">
+          {/* Services with JS-state dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={openServices}
+            onMouseLeave={closeServices}
+          >
             <Link
               href={`/${locale}/services`}
               className={`flex items-center gap-1 text-sm font-semibold transition-colors relative ${isServicesActive ? activeClass : inactiveClass}`}
             >
               {t('services')}
-              <ChevronDown size={13} className="transition-transform duration-200 group-hover:rotate-180" />
+              <ChevronDown size={13} className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`} />
               {isServicesActive && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#00B4FF] rounded-full" />}
             </Link>
 
-            {/* Invisible hover bridge so dropdown doesn't close in the gap */}
-            <div className="absolute top-full left-0 w-full h-4 bg-transparent" />
-
-            {/* Dropdown — pure CSS group-hover, no JS */}
-            <div className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[640px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden
-                            opacity-0 invisible translate-y-2
-                            group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
-                            transition-all duration-200 z-50">
-
+            {/* Dropdown panel */}
+            <div
+              onMouseEnter={openServices}
+              onMouseLeave={closeServices}
+              className={`absolute top-[calc(100%+44px)] left-1/2 -translate-x-1/2 w-[640px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-[60] transition-all duration-200 ${
+                servicesOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'
+              }`}
+            >
               <div className="px-5 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Our Services</span>
                 <Link href={`/${locale}/services`} className="text-[#00B4FF] text-xs font-bold hover:underline flex items-center gap-1">
@@ -84,6 +97,7 @@ export function Navbar() {
                     <Link
                       key={svc.slug}
                       href={`/${locale}/services/${svc.slug}`}
+                      onClick={() => setServicesOpen(false)}
                       className={`flex items-center gap-3 px-4 py-3.5 hover:bg-blue-50 group/item transition-colors ${i % 2 === 0 ? 'border-r border-slate-100' : ''} ${i < SERVICES.length - 2 ? 'border-b border-slate-100' : ''}`}
                     >
                       <div

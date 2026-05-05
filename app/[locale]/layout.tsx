@@ -12,14 +12,50 @@ const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' 
 const locales = ['fr', 'en', 'ar'];
 
 export const metadata: Metadata = {
-  title: 'IT Space — Tanger | IT Consulting & Cyber Security',
-  description:
-    'IT Space is your trusted technology partner in Tanger, Morocco. IT Consulting, Cyber Security, Cloud Solutions, Digital Transformation.',
-  alternates: {
-    canonical: 'https://itspace.ma',
+  title: {
+    default: 'IT Space — Tanger | IT Consulting & Cybersecurity',
+    template: '%s — IT Space Tanger',
   },
-  other: {
-    'sitemap': '/sitemap.xml',
+  description:
+    'IT Space is your trusted technology partner in Tanger, Morocco. IT Consulting, Cybersecurity, Cloud Solutions, Digital Transformation & Software Development.',
+  keywords: ['IT consulting', 'cybersecurity', 'cloud solutions', 'digital transformation', 'software development', 'Tanger', 'Morocco', 'North Africa'],
+  authors: [{ name: 'IT Space', url: 'https://itspace.ma' }],
+  creator: 'IT Space',
+  metadataBase: new URL('https://itspace.ma'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      fr: '/fr',
+      en: '/en',
+      ar: '/ar',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    siteName: 'IT Space',
+    title: 'IT Space — IT Consulting & Cybersecurity | Tanger, Morocco',
+    description:
+      'Your trusted technology partner in North Africa. IT Consulting, Cybersecurity, Cloud Solutions & Digital Transformation.',
+    url: 'https://itspace.ma',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'IT Space — Technology Solutions in Tanger, Morocco',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IT Space — IT Consulting & Cybersecurity | Tanger',
+    description: 'Your trusted technology partner in North Africa.',
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
 };
 

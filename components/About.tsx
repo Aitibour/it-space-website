@@ -6,7 +6,7 @@ import {
   Zap, ShieldCheck, Star, Eye, Target, ArrowRight,
   MapPin, Users, Award, TrendingUp, CheckCircle,
 } from 'lucide-react';
-import { VideoSection } from './VideoSection';
+import { LogoOrb } from './LogoOrb';
 
 const STATS = [
   { value: '10+', label: { en: 'Years of Expertise', fr: "Années d'Expertise", ar: 'سنوات من الخبرة' } },
@@ -75,14 +75,9 @@ export function About({ preview = false }: { preview?: boolean }) {
               </div>
             </div>
 
-            {/* Video */}
-            <div>
-              <VideoSection
-                videoId="LXb3EKWsInQ"
-                poster="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80&auto=format&fit=crop"
-                title={t('story_title')}
-                subtitle={t('body')}
-              />
+            {/* Animated logo orb */}
+            <div className="flex justify-center lg:justify-end">
+              <LogoOrb />
             </div>
           </div>
         </div>

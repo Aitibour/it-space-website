@@ -77,8 +77,8 @@ export function Services({ preview = false }: Props) {
                   <p className="text-[11px] font-semibold mb-2" style={{ color: svc.color }}>
                     {svc.short[lang]}
                   </p>
-                  <div className="flex items-center gap-1.5 text-white/60 group-hover:text-white transition-all duration-300 text-xs font-semibold">
-                    {t('learn_more')} <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                  <div className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors duration-200 mt-1">
+                    {t('learn_more')} <ArrowRight size={11} />
                   </div>
                 </div>
               </Link>

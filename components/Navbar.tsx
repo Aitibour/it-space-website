@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, ArrowRight, Lightbulb, Shield, Cloud, Zap, Code2, Cpu } from 'lucide-react';
+import { Menu, X, ArrowRight, Lightbulb, Shield, Cloud, Zap, Code2, Cpu } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Logo } from './Logo';
 import { SERVICES } from '@/lib/services-data';
@@ -19,8 +19,6 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const dropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10);
@@ -28,135 +26,51 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  /* Close dropdown when navigating */
-  useEffect(() => { setMobileOpen(false); setServicesOpen(false); }, [pathname]);
-
-  /* Close dropdown when clicking outside */
-  useEffect(() => {
-    if (!servicesOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (dropRef.current && !dropRef.current.contains(e.target as Node)) {
-        setServicesOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, [servicesOpen]);
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const isActive = (href: string) =>
     href === `/${locale}` ? pathname === `/${locale}` : pathname.startsWith(href);
   const isServicesActive = pathname.startsWith(`/${locale}/services`);
 
-  const activeClass = scrolled ? 'text-[#1E40AF]' : 'text-[#00B4FF]';
+  const activeClass = 'text-[#00B4FF]';
   const inactiveClass = scrolled ? 'text-slate-700 hover:text-[#1E40AF]' : 'text-white/85 hover:text-white';
+  const activeScrolledClass = scrolled ? 'text-[#1E40AF]' : 'text-[#00B4FF]';
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
+      {/* ── Row 1: Main nav ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Link href={`/${locale}`} aria-label="IT Space Home">
           <Logo white={!scrolled} />
         </Link>
 
-        {/* ── Desktop nav ── */}
         <nav className="hidden md:flex items-center gap-7">
-          <Link href={`/${locale}`} className={`text-sm font-semibold transition-colors relative ${isActive(`/${locale}`) ? activeClass : inactiveClass}`}>
+          <Link href={`/${locale}`} className={`text-sm font-semibold transition-colors relative ${isActive(`/${locale}`) ? activeScrolledClass : inactiveClass}`}>
             {t('home')}
             {isActive(`/${locale}`) && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#00B4FF] rounded-full" />}
           </Link>
 
-          {/* Services dropdown — click to open */}
-          <div ref={dropRef} className="relative">
-            <button
-              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors relative px-1 py-0.5 rounded ${
-                servicesOpen
-                  ? (scrolled ? 'text-[#1E40AF]' : 'text-[#00B4FF]')
-                  : isServicesActive ? activeClass : inactiveClass
-              }`}
-              onClick={() => setServicesOpen((v) => !v)}
-              aria-expanded={servicesOpen}
-              aria-haspopup="true"
-            >
-              {t('services')}
-              <ChevronDown size={14} className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`} />
-              {isServicesActive && !servicesOpen && (
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#00B4FF] rounded-full" />
-              )}
-            </button>
-
-            {/* Dropdown panel */}
-            {servicesOpen && (
-              <div className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 w-[680px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50">
-                {/* Header */}
-                <div className="px-6 py-4 flex items-center justify-between border-b border-slate-100 bg-[#F8FAFC]">
-                  <p className="text-[#0D1B3E] font-black text-sm tracking-tight uppercase tracking-widest text-xs">
-                    {t('services')}
-                  </p>
-                  <Link
-                    href={`/${locale}/services`}
-                    onClick={() => setServicesOpen(false)}
-                    className="text-[#00B4FF] text-xs font-bold hover:underline flex items-center gap-1"
-                  >
-                    View all <ArrowRight size={11} />
-                  </Link>
-                </div>
-
-                {/* 2-column service grid */}
-                <div className="grid grid-cols-2 gap-px bg-slate-100">
-                  {SERVICES.map((svc) => {
-                    const Icon = ICON_MAP[svc.iconName];
-                    return (
-                      <Link
-                        key={svc.slug}
-                        href={`/${locale}/services/${svc.slug}`}
-                        onClick={() => setServicesOpen(false)}
-                        className="flex items-start gap-3 p-4 bg-white hover:bg-[#F0F7FF] group transition-colors duration-150"
-                      >
-                        <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{ background: `linear-gradient(135deg, ${svc.color}DD, ${svc.color}66)` }}
-                        >
-                          <Icon size={18} className="text-white" strokeWidth={1.75} />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-[#0D1B3E] font-bold text-sm mb-0.5 group-hover:text-[#1E40AF] transition-colors flex items-center gap-1">
-                            {svc.title[locale]}
-                            <ArrowRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity -ml-0.5" />
-                          </p>
-                          <p className="text-slate-400 text-xs leading-snug line-clamp-1">{svc.short[locale]}</p>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-
-                {/* Footer */}
-                <div className="px-5 py-3 bg-[#F8FAFC] border-t border-slate-100 flex items-center justify-between">
-                  <p className="text-slate-400 text-xs">Not sure which service fits?</p>
-                  <Link
-                    href={`/${locale}/contact`}
-                    onClick={() => setServicesOpen(false)}
-                    className="inline-flex items-center gap-1.5 bg-[#0D1B3E] text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-[#1E40AF] transition-colors"
-                  >
-                    Free Consultation <ArrowRight size={11} />
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
+          {/* Services — plain link, sub-bar below handles subpages */}
+          <Link
+            href={`/${locale}/services`}
+            className={`text-sm font-semibold transition-colors relative ${isServicesActive ? activeScrolledClass : inactiveClass}`}
+          >
+            {t('services')}
+            {isServicesActive && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#00B4FF] rounded-full" />}
+          </Link>
 
           {[
             { key: 'about' as const, href: `/${locale}/about` },
             { key: 'contact' as const, href: `/${locale}/contact` },
           ].map(({ key, href }) => (
-            <Link key={key} href={href} className={`text-sm font-semibold transition-colors relative ${isActive(href) ? activeClass : inactiveClass}`}>
+            <Link key={key} href={href} className={`text-sm font-semibold transition-colors relative ${isActive(href) ? activeScrolledClass : inactiveClass}`}>
               {t(key)}
               {isActive(href) && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#00B4FF] rounded-full" />}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop right controls */}
         <div className="hidden md:flex items-center gap-3">
           <div className="flex items-center gap-0.5 text-[11px] font-bold">
             {LOCALES.map((l, i) => (
@@ -168,7 +82,6 @@ export function Navbar() {
               </span>
             ))}
           </div>
-
           <Link
             href={`/${locale}/contact`}
             className="text-sm font-bold px-4 py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
@@ -181,7 +94,6 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className={`md:hidden p-2 rounded-lg transition-colors ${scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'}`}
           onClick={() => setMobileOpen((v) => !v)}
@@ -189,6 +101,51 @@ export function Navbar() {
         >
           {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
+      </div>
+
+      {/* ── Row 2: Services sub-bar (always visible on desktop, fades when scrolled) ── */}
+      <div
+        className={`hidden md:block border-t transition-all duration-300 ${
+          scrolled
+            ? 'border-slate-100 bg-white/95'
+            : 'border-white/10 bg-black/20 backdrop-blur-sm'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-1 py-1.5 overflow-x-auto no-scrollbar">
+            <span className={`text-[10px] font-bold uppercase tracking-widest mr-3 flex-shrink-0 ${scrolled ? 'text-slate-400' : 'text-white/40'}`}>
+              Services:
+            </span>
+            {SERVICES.map((svc) => {
+              const Icon = ICON_MAP[svc.iconName];
+              const isServiceActive = pathname === `/${locale}/services/${svc.slug}`;
+              return (
+                <Link
+                  key={svc.slug}
+                  href={`/${locale}/services/${svc.slug}`}
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0 transition-all duration-200 ${
+                    isServiceActive
+                      ? 'bg-[#00B4FF] text-white shadow-sm shadow-[#00B4FF]/30'
+                      : scrolled
+                        ? 'text-slate-600 hover:text-[#1E40AF] hover:bg-blue-50'
+                        : 'text-white/70 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Icon size={11} strokeWidth={2} />
+                  {svc.title[locale]}
+                </Link>
+              );
+            })}
+            <Link
+              href={`/${locale}/services`}
+              className={`ml-auto flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold flex-shrink-0 transition-colors ${
+                scrolled ? 'text-[#00B4FF] hover:bg-blue-50' : 'text-[#00B4FF] hover:bg-white/10'
+              }`}
+            >
+              View all <ArrowRight size={9} />
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* ── Mobile menu ── */}
@@ -201,7 +158,7 @@ export function Navbar() {
             {t('home')}
           </Link>
 
-          {/* Services — always expanded on mobile */}
+          {/* Services always expanded */}
           <div className="mt-1">
             <div className="px-4 py-2 flex items-center justify-between">
               <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest">{t('services')}</span>

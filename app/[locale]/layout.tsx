@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
+import { Analytics } from '@vercel/analytics/next';
 import '../globals.css';
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' });
@@ -79,6 +80,7 @@ export default async function LocaleLayout({
           <main>{children}</main>
           <Footer />
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );

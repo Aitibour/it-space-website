@@ -176,18 +176,22 @@ export function LogoOrb() {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      /* glowing arc on ring */
+      /* glowing arc on ring — drawn as segmented arc to avoid createConicGradient compat issues */
       const arcAngle = t * 0.9;
-      const arcGrad = ctx.createConicGradient(arcAngle, 0, 0);
-      arcGrad.addColorStop(0, 'rgba(0,180,255,0)');
-      arcGrad.addColorStop(0.15, 'rgba(0,180,255,0.9)');
-      arcGrad.addColorStop(0.3, 'rgba(0,180,255,0)');
-      arcGrad.addColorStop(1, 'rgba(0,180,255,0)');
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 168, 168, 0, 0, Math.PI * 2);
-      ctx.strokeStyle = arcGrad;
-      ctx.lineWidth = 2.5;
-      ctx.stroke();
+      const arcSpan = Math.PI * 0.55;
+      const segments = 32;
+      for (let s = 0; s < segments; s++) {
+        const frac = s / segments;
+        const a0 = arcAngle + frac * arcSpan;
+        const a1 = arcAngle + (s + 1) / segments * arcSpan;
+        const mid = frac < 0.4 ? frac / 0.4 : 1 - (frac - 0.4) / 0.6;
+        const alpha = 0.9 * mid;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 168, 168, 0, a0, a1);
+        ctx.strokeStyle = `rgba(0,180,255,${alpha.toFixed(3)})`;
+        ctx.lineWidth = 2.5 + mid * 1.5;
+        ctx.stroke();
+      }
 
       /* orbit particles */
       particles.forEach((p) => {

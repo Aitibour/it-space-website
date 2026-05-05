@@ -15,6 +15,12 @@ export const metadata: Metadata = {
   title: 'IT Space — Tanger | IT Consulting & Cyber Security',
   description:
     'IT Space is your trusted technology partner in Tanger, Morocco. IT Consulting, Cyber Security, Cloud Solutions, Digital Transformation.',
+  alternates: {
+    canonical: 'https://itspace.ma',
+  },
+  other: {
+    'sitemap': '/sitemap.xml',
+  },
 };
 
 export default async function LocaleLayout({

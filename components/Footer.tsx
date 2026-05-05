@@ -176,6 +176,14 @@ export function Footer() {
                 {label}
               </Link>
             ))}
+            <div className="flex items-center gap-4">
+              <a href="/sitemap.xml" target="_blank" rel="noopener" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">
+                Sitemap
+              </a>
+              <a href="/llms.txt" target="_blank" rel="noopener" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">
+                LLMs.txt
+              </a>
+            </div>
             <div className="flex items-center gap-1 text-slate-500 text-xs">
               <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
               <span>All systems operational</span>

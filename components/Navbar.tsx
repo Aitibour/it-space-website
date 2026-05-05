@@ -20,7 +20,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ export function Navbar() {
   useEffect(() => { setMobileOpen(false); setServicesOpen(false); }, [pathname]);
 
   const openDrop = () => { if (closeTimer.current) clearTimeout(closeTimer.current); setServicesOpen(true); };
-  const closeDrop = () => { closeTimer.current = setTimeout(() => setServicesOpen(false), 130); };
+  const closeDrop = () => { closeTimer.current = setTimeout(() => setServicesOpen(false), 200); };
 
   const isActive = (href: string) =>
     href === `/${locale}` ? pathname === `/${locale}` : pathname.startsWith(href);
@@ -68,15 +67,19 @@ export function Navbar() {
               className={`flex items-center gap-1 text-sm font-semibold transition-colors relative ${isServicesActive ? activeClass : inactiveClass}`}
               onClick={() => setServicesOpen((v) => !v)}
               aria-expanded={servicesOpen}
+              aria-haspopup="true"
             >
               {t('services')}
               <ChevronDown size={13} className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`} />
               {isServicesActive && <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#00B4FF] rounded-full" />}
             </button>
 
+            {/* Invisible bridge to prevent gap-triggered close */}
+            <div className="absolute top-full left-0 w-full h-3" />
+
             {/* Mega-dropdown panel */}
             <div
-              className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[660px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transition-all duration-200 origin-top ${servicesOpen ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}
+              className={`absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[660px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden transition-all duration-200 origin-top ${servicesOpen ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}
               onMouseEnter={openDrop}
               onMouseLeave={closeDrop}
             >
@@ -178,26 +181,28 @@ export function Navbar() {
             {t('home')}
           </Link>
 
-          {/* Mobile services accordion */}
-          <button
-            className="flex items-center justify-between px-4 py-3 text-white/85 hover:text-white font-semibold text-sm rounded-xl hover:bg-white/5 transition-colors w-full"
-            onClick={() => setMobileServicesOpen((v) => !v)}
-          >
-            {t('services')}
-            <ChevronDown size={14} className={`transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`} />
-          </button>
-
-          <div className={`overflow-hidden transition-all duration-300 ${mobileServicesOpen ? 'max-h-96' : 'max-h-0'}`}>
-            <div className="ml-3 flex flex-col gap-0.5 mb-1">
-              <Link href={`/${locale}/services`} onClick={() => setMobileOpen(false)} className="px-4 py-2 text-[#00B4FF] text-xs font-bold hover:bg-white/5 rounded-lg transition-colors flex items-center gap-1">
-                <ArrowRight size={11} /> All Services
+          {/* Services — always expanded on mobile */}
+          <div className="mt-1">
+            <div className="px-4 py-2 flex items-center justify-between">
+              <span className="text-white/50 text-[10px] font-bold uppercase tracking-widest">{t('services')}</span>
+              <Link href={`/${locale}/services`} onClick={() => setMobileOpen(false)} className="text-[#00B4FF] text-[10px] font-bold flex items-center gap-1 hover:underline">
+                View all <ArrowRight size={10} />
               </Link>
+            </div>
+            <div className="flex flex-col gap-0.5">
               {SERVICES.map((svc) => {
                 const Icon = ICON_MAP[svc.iconName];
                 return (
-                  <Link key={svc.slug} href={`/${locale}/services/${svc.slug}`} onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2.5 text-white/70 hover:text-white text-sm rounded-xl hover:bg-white/5 transition-colors">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${svc.color}CC, ${svc.color}55)` }}>
+                  <Link
+                    key={svc.slug}
+                    href={`/${locale}/services/${svc.slug}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2.5 text-white/70 hover:text-white text-sm rounded-xl hover:bg-white/5 transition-colors"
+                  >
+                    <div
+                      className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ background: `linear-gradient(135deg, ${svc.color}CC, ${svc.color}55)` }}
+                    >
                       <Icon size={13} className="text-white" strokeWidth={2} />
                     </div>
                     {svc.title[locale]}
@@ -207,12 +212,14 @@ export function Navbar() {
             </div>
           </div>
 
-          <Link href={`/${locale}/about`} onClick={() => setMobileOpen(false)} className="px-4 py-3 text-white/85 hover:text-white font-semibold text-sm rounded-xl hover:bg-white/5 transition-colors">
-            {t('about')}
-          </Link>
-          <Link href={`/${locale}/contact`} onClick={() => setMobileOpen(false)} className="px-4 py-3 text-white/85 hover:text-white font-semibold text-sm rounded-xl hover:bg-white/5 transition-colors">
-            {t('contact')}
-          </Link>
+          <div className="mt-1 border-t border-white/5 pt-1">
+            <Link href={`/${locale}/about`} onClick={() => setMobileOpen(false)} className="px-4 py-3 text-white/85 hover:text-white font-semibold text-sm rounded-xl hover:bg-white/5 transition-colors block">
+              {t('about')}
+            </Link>
+            <Link href={`/${locale}/contact`} onClick={() => setMobileOpen(false)} className="px-4 py-3 text-white/85 hover:text-white font-semibold text-sm rounded-xl hover:bg-white/5 transition-colors block">
+              {t('contact')}
+            </Link>
+          </div>
 
           <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between px-2">
             <div className="flex items-center gap-0.5 text-[11px] font-bold">
